@@ -11,6 +11,8 @@ import {
   Segment,
   Button
 } from 'semantic-ui-react';
+import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
+import WizardFooter from 'components/commons/wizard/wizardFooter/wizardFooter';
 
 class Wizard extends Component {
 
@@ -135,27 +137,15 @@ class Wizard extends Component {
 
             <Grid celled centered stretched style={{margin: '0px 0px'}}>
               <Grid.Row divided>
-                <Grid.Column width={3}>
-                  <section style={{overflowY: 'auto', height: '400px'}}>
-                    <Header as='h1' className="centered" style={{marginTop: '14px'}}>Issues</Header>
-                    <List animated divided selection verticalAlign='middle'>
-                      {userList}
-                    </List>
-                  </section>
-                </Grid.Column>
+                <WizardSidebar title="Issues">
+                  {userList}
+                </WizardSidebar>
                 <Grid.Column width={13} style={wizardBodyStyle}>
                   <section style={bodyHeaderStyle}></section>
                   {this.props.children}
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row style={{ padding: '10px', display: 'inline-block'}}>
-                <Button color="red" size='medium' floated="left">Cancelar</Button>
-                <Button.Group floated="right" size='medium' >
-                  <Button>Anterior</Button>
-                  <Button.Or />
-                  <Button color="blue">Siguiente</Button>
-                </Button.Group>
-              </Grid.Row>
+                <WizardFooter />
             </Grid>
           </Segment>
       </div>
