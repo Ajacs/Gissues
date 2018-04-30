@@ -2,7 +2,12 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import Wizard from 'components/commons/wizard/wizard';
-import queryString from 'query-string'
+import queryString from 'query-string';
+
+import WizardUserStep from 'views/user/userView';
+
+// @services
+import listUsers from 'services/api';
 
 class SearchView extends Component {
 
@@ -15,6 +20,10 @@ class SearchView extends Component {
         { key: 'issues', disabled: true, icon: 'warning', title: 'Issue', description: 'Select or create issue' },
       ],
       currentStep: null,
+      selectedUser: {},
+      userList: [],
+      repositoryList: [],
+      repositoryIssues: [],
       selectedElement: {}
     }
   }
@@ -35,23 +44,33 @@ class SearchView extends Component {
       return step
     });
     this.setState({
-      currentStep,
-      steps: updatedSteps
-    });
+      currentStep
+    })
+  }
+
+  getCurrentStep() {
+    const parsed = queryString.parse(this.props.location.search);
+    const { by, val } = parsed;
+    let currentStep;
+    switch(this.state.currentStep) {
+      case 1:
+        currentStep = (<WizardUserStep searchValue={val} />)
+        break;
+      case 2:
+      case 3:
+      break
+    }
+    return currentStep;
   }
 
   render() {
-    const { currentStep, steps } = this.state;
+    const { currentStep, steps, userList } = this.state;
+    const currentWizardStep = this.getCurrentStep();
 
     return (
       <Container>
-        <Wizard currentStep={currentStep} steps={steps}>
-          <p>Hola</p>
-          <p>Hola</p>
-          <p>Hola</p>
-          <p>Hola</p>
-          <p>Hola</p>
-          <p>Hola</p>
+        <Wizard dataList={userList} currentStep={currentStep} steps={steps}>
+          {currentWizardStep}
         </Wizard>
       </Container>
     )

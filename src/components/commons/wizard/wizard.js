@@ -22,57 +22,8 @@ class Wizard extends Component {
   }
 
   createUserList() {
-    const userList = [
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/helen.jpg',
-        name: 'Helen'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/christian.jpg',
-        name: 'Christian'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/helen.jpg',
-        name: 'Helen'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/christian.jpg',
-        name: 'Christian'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/helen.jpg',
-        name: 'Helen'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/christian.jpg',
-        name: 'Christian'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/helen.jpg',
-        name: 'Helen'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/christian.jpg',
-        name: 'Christian'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/helen.jpg',
-        name: 'Helen'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/christian.jpg',
-        name: 'Christian'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/helen.jpg',
-        name: 'Helen'
-      },
-      {
-        avatarUrl: 'https://react.semantic-ui.com/assets/images/avatar/small/christian.jpg',
-        name: 'Christian'
-      }
-    ];
-    return <UserSidebarContent userList={userList}/>
+    const { dataList } = this.props;
+    return <UserSidebarContent userList={dataList}/>
   }
 
   getSidebarTitle() {
@@ -165,15 +116,7 @@ class Wizard extends Component {
           items={steps} />
           <Segment attached style={{padding: '0px'}}>
             <Grid celled centered stretched style={{margin: '0px 0px'}}>
-              <Grid.Row divided>
-                <WizardSidebar title={sidebarTitle}>
-                  {sidebarBody}
-                </WizardSidebar>
-                <Grid.Column width={13} style={wizardBodyStyle}>
-                  <section style={bodyHeaderStyle}></section>
-                  {this.props.children}
-                </Grid.Column>
-              </Grid.Row>
+                {this.props.children}
                 <WizardFooter />
             </Grid>
           </Segment>
@@ -187,7 +130,8 @@ Wizard.propTypes = {
   steps: PropTypes.array,
   fluid: PropTypes.boolean,
   currentStep: PropTypes.number,
-  sidebarData: PropTypes.array
+  sidebarData: PropTypes.array,
+  dataList: PropTypes.array
 }
 
 Wizard.defaultProps = {

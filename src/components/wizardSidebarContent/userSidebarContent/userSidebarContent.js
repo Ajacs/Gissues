@@ -3,9 +3,9 @@ import { Image, Label, List } from 'semantic-ui-react';
 const UserSidebarContent = ({userList}) => {
   return userList.map( user => (
       <List.Item>
-        <Image avatar src={user.avatarUrl} />
+        <Image avatar src={user.avatar_url} />
         <List.Content>
-          <List.Header>{user.name} <Label style={{float: 'right'}} circular color="green" empty /></List.Header>
+          <List.Header>{user.name || user.login}</List.Header>
         </List.Content>
       </List.Item>
     ));
