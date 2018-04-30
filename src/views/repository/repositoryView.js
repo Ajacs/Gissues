@@ -2,39 +2,38 @@ import React, { Component } from 'react';
 import PropTypes from 'proptypes';
 import { Container, Grid, Header, Image } from 'semantic-ui-react';
 // @components
-import UserSidebarContent from 'components/wizardSidebarContent/userSidebarContent/userSidebarContent';
+import RepositorySidebarContent from 'components/wizardSidebarContent/repositorySidebarContent/repositorySidebarContent';
 import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
 
 // @services
-import { listUsers } from 'services/api';
+import { listUserRepositories } from 'services/api';
 
-class Userview extends Component {
+class RepositoryView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userList: []
+      repositoryList: []
     }
   }
 
   componentDidMount() {
     const { searchValue } = this.props;
     if(searchValue) {
-      listUsers({user: searchValue}).then( response => {
+      listUserRepositories({user: searchValue}).then( response => {
         this.setState({
-          userList: [response]
+          repositoryList: response
         });
       });
     }
   }
 
   getBody() {
-    if(this.state.userList.length) {
-      const { userList } = this.state;
-      const user = userList[0];
+    if(this.state.repositoryList.length) {
+      const { repositoryList } = this.state;
+      const repository = repositoryList;
         return (
           <Container text style={{textAlign: 'center'}}>
-          <Image className="centered" src={user.avatar_url} size='small' circular />
-          <Header size='huge'>{user.name || user.login}</Header>
+          <Header size='huge'>{repository.name}</Header>
         </Container>
       );
     }
@@ -47,8 +46,8 @@ class Userview extends Component {
 
     return (
       <Grid.Row divided>
-        <WizardSidebar title="Users">
-          <UserSidebarContent userList={this.state.userList}/>
+        <WizardSidebar title="Repositorios">
+          <RepositorySidebarContent repositoryList={this.state.repositoryList}/>
         </WizardSidebar>
         <Grid.Column width={13} style={wizardBodyStyle}>
           {this.getBody()}
@@ -58,8 +57,8 @@ class Userview extends Component {
   }
 }
 
-Userview.propTypes = {
+RepositoryView.propTypes = {
   searchValue: PropTypes.string
 }
 
-export default Userview;
+export default RepositoryView;

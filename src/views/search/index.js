@@ -5,6 +5,7 @@ import Wizard from 'components/commons/wizard/wizard';
 import queryString from 'query-string';
 
 import WizardUserStep from 'views/user/userView';
+import WizardRepositoryStep from 'views/repository/repositoryView';
 
 // @services
 import listUsers from 'services/api';
@@ -26,6 +27,9 @@ class SearchView extends Component {
       repositoryIssues: [],
       selectedElement: {}
     }
+    this.onNextClicked = this.onNextClicked.bind(this);
+    this.onPreviousClicked = this.onPreviousClicked.bind(this);
+    this.onCancelClicked = this.onCancelClicked.bind(this);
   }
 
   componentDidMount(props) {
@@ -57,19 +61,67 @@ class SearchView extends Component {
         currentStep = (<WizardUserStep searchValue={val} />)
         break;
       case 2:
+        currentStep = (<WizardRepositoryStep searchValue={val} />)
       case 3:
       break
     }
     return currentStep;
   }
 
+  updateProgressIndicator() {
+    const { currentStep, steps } = this.state;
+    const updatedSteps =  steps.map( (step, index) => {
+      if (index + 1 === currentStep) {
+        step.active = true;
+        step.disabled = false;
+      } else {
+        step.active = false;
+        step.disabled = true;
+      }
+      return step;
+    });
+    return updatedSteps;
+  }
+
+  onNextClicked() {
+    const { currentStep } = this.state;
+    if( currentStep >= 1 || currentStep <= 3) {
+      this.setState({
+        currentStep: this.state.currentStep + 1,
+        steps: this.updateProgressIndicator()
+      });
+    }
+  }
+
+  onPreviousClicked() {
+    const { currentStep } = this.state;
+    if( currentStep >= 0 || currentStep <= 3) {
+      this.setState({
+        currentStep: currentStep - 1,
+        steps: this.updateProgressIndicator()
+      });
+    }
+  }
+
+  onCancelClicked() {
+    this.props.history.push("/");
+  }
+
   render() {
     const { currentStep, steps, userList } = this.state;
     const currentWizardStep = this.getCurrentStep();
-
+    const actions = {
+      onNextClicked: this.onNextClicked,
+      onPreviousClicked: this.onPreviousClicked,
+      onCancelClicked: this.onCancelClicked
+    };
     return (
       <Container>
-        <Wizard dataList={userList} currentStep={currentStep} steps={steps}>
+        <Wizard
+        actions={actions}
+        dataList={userList}
+        currentStep={currentStep}
+        steps={steps}>
           {currentWizardStep}
         </Wizard>
       </Container>

@@ -62,6 +62,7 @@ class Wizard extends Component {
 
   render() {
     const {
+      actions,
       fluid,
       steps,
       currentStep
@@ -117,7 +118,7 @@ class Wizard extends Component {
           <Segment attached style={{padding: '0px'}}>
             <Grid celled centered stretched style={{margin: '0px 0px'}}>
                 {this.props.children}
-                <WizardFooter />
+                <WizardFooter actions={actions}/>
             </Grid>
           </Segment>
       </div>
@@ -131,7 +132,8 @@ Wizard.propTypes = {
   fluid: PropTypes.boolean,
   currentStep: PropTypes.number,
   sidebarData: PropTypes.array,
-  dataList: PropTypes.array
+  dataList: PropTypes.array,
+  actions: PropTypes.array
 }
 
 Wizard.defaultProps = {

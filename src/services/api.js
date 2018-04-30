@@ -58,9 +58,12 @@ const listRepositoryIssues = params => {
   return baseRequest('repositoryIssues', 'GET', params);
 };
 
-const listUsers = params => {
-  console.log('listUser params = >', params);
+export const listUsers = params => {
   return baseRequest('users', 'GET', params);
+};
+
+export const listUserRepositories = params => {
+  return baseRequest('userRepositories', 'GET', params);
 };
 
 const userDetail = () => {
@@ -74,5 +77,3 @@ const listRepositories = () => {
 const repositoryDetail = () => {
 
 };
-
-export default listUsers;
