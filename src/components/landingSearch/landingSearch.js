@@ -3,19 +3,31 @@ import { Container, Dropdown, Input } from 'semantic-ui-react';
 import 'App.css';
 import gissuesLogo from 'new_gissues.png';
 import SearchBar from 'components/commons/searchBar/searchBar';
+import PropTypes from 'proptypes';
 const options = [
-  { key: 'search_by_users', text: 'Search by Users', value: 'search_by_users' },
-  { key: 'search_by_repositories', text: 'Search by Repositories', value: 'search_by_repositories' }
+  { key: 'k-users', text: 'Search by Users', value: 'users' },
+  { key: 'k-repositories', text: 'Search by Repositories', value: 'repositories' }
 ];
 
-const LandingSearch = () =>
-(
-  <Container text>
+const LandingSearch = ({actions, error}) => {
+  const { inputChange, dropdownChange, submit } = actions;
+  return (<Container text>
     <header className="App App-header">
     <img src={gissuesLogo} className="App-logo" alt="logo" />
     </header>
-    <SearchBar searchOptions={options} />
-  </Container>
-)
+    <SearchBar
+      error={error}
+      inputChange={inputChange}
+      dropdownChange={dropdownChange}
+      onSubmit={submit}
+      searchOptions={options}
+    />
+  </Container>)
+}
+
+LandingSearch.PropTypes = {
+  actions: PropTypes.object,
+  error: PropTypes.boolean
+};
 
 export default LandingSearch;

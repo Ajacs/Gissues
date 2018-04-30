@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import gissuesLogo from 'new_gissues.png';
 
 const options = [
@@ -11,9 +12,8 @@ const Navbar = () =>
 
     (<Menu stackable>
       <Menu.Item
-        as="a"
-        href="https://github.com/Ajacs/Gissues"
-        target="_blank">
+        as={Link}
+        to="/">
         <img class="ui mini image" style={{marginRight: "2.5em"}} src={gissuesLogo} />
       </Menu.Item>
 
