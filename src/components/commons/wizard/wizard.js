@@ -13,6 +13,7 @@ import {
 } from 'semantic-ui-react';
 import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
 import WizardFooter from 'components/commons/wizard/wizardFooter/wizardFooter';
+import UserSidebarContent from 'components/wizardSidebarContent/userSidebarContent/userSidebarContent';
 
 class Wizard extends Component {
 
@@ -71,20 +72,48 @@ class Wizard extends Component {
         name: 'Christian'
       }
     ];
-    return userList.map( user => (
-      <List.Item>
-        <Image avatar src={user.avatarUrl} />
-        <List.Content>
-          <List.Header>{user.name}</List.Header>
-        </List.Content>
-      </List.Item>
-    ));
+    return <UserSidebarContent userList={userList}/>
+  }
+
+  getSidebarTitle() {
+    let sidebarTitle = '';
+    switch (this.props.currentStep) {
+      case 1:
+        sidebarTitle = 'Users'; //TODO: All this 'hardcoded' strings need to be in the locale file, using i18n
+        break;
+      case 2:
+        sidebarTitle = 'Repositories';
+        break;
+      default:
+        sidebarTitle = 'Issues';
+        break;
+
+    }
+    return sidebarTitle;
+  }
+
+  getSidebarbody() {
+    let sidebarBody = '';
+    switch (this.props.currentStep) {
+      case 1:
+        sidebarBody = this.createUserList();
+        break;
+      case 2:
+        sidebarBody = 'Repositories';
+        break;
+      default:
+        sidebarBody = 'Issues';
+        break;
+
+    }
+    return sidebarBody;
   }
 
   render() {
     const {
       fluid,
-      steps
+      steps,
+      currentStep
     } = this.props;
     const bodyStyle = {
       border: '1px solid rgba(34, 36, 38, 0.15)',
@@ -124,8 +153,9 @@ class Wizard extends Component {
     // =========================================================
 
     // =========================================================
+    const sidebarTitle = this.getSidebarTitle();
+    const sidebarBody = this.getSidebarbody();
 
-    const userList = this.createUserList();
     return (
       <div style={wizardStyle}>
         <Step.Group
@@ -134,11 +164,10 @@ class Wizard extends Component {
           fluid={fluid}
           items={steps} />
           <Segment attached style={{padding: '0px'}}>
-
             <Grid celled centered stretched style={{margin: '0px 0px'}}>
               <Grid.Row divided>
-                <WizardSidebar title="Issues">
-                  {userList}
+                <WizardSidebar title={sidebarTitle}>
+                  {sidebarBody}
                 </WizardSidebar>
                 <Grid.Column width={13} style={wizardBodyStyle}>
                   <section style={bodyHeaderStyle}></section>
@@ -156,7 +185,9 @@ class Wizard extends Component {
 
 Wizard.propTypes = {
   steps: PropTypes.array,
-  fluid: PropTypes.boolean
+  fluid: PropTypes.boolean,
+  currentStep: PropTypes.number,
+  sidebarData: PropTypes.array
 }
 
 Wizard.defaultProps = {
