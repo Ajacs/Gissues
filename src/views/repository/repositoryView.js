@@ -6,26 +6,29 @@ import RepositorySidebarContent from 'components/wizardSidebarContent/repository
 import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
 
 // @services
-import { listUserRepositories } from 'services/api';
+import { listUserRepositories, listRepositories } from 'services/api';
 
 class RepositoryView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      repositoryList: [],
-      selectedRepository: 0
+      repositoryList: []
     }
     this.onRepositoryClick = this.onRepositoryClick.bind(this);
   }
 
   componentDidMount() {
-    const { searchValue } = this.props;
+    const { searchValue, searchBy } = this.props;
     if(searchValue) {
-      listUserRepositories({user: searchValue}).then( response => {
-        this.setState({
-          repositoryList: response
+      if(searchBy === 'repositories') { // search only by repository name
+        // TODO : this needs the owner of the repository listRepositories({})
+      } else { // search by user -> repositories
+        listUserRepositories({user: searchValue}).then( response => {
+          this.setState({
+            repositoryList: response
+          });
         });
-      });
+      }
     }
   }
 
@@ -72,27 +75,31 @@ class RepositoryView extends Component {
 
   getBody() {
     if(this.state.repositoryList.length) {
-      const { repositoryList, selectedRepository } = this.state;
-      const repository = repositoryList[selectedRepository];
-      console.log(repository);
+      const { repositoryList } = this.state;
+      const { selectedRepository } = this.props;
+      const repository = repositoryList[selectedRepository.id];
       const haveIssues = repository.has_issues;
       const statistics = this.getRepositoryStatistics(repository);
         return (
           <Container text style={{textAlign: 'center'}}>
-          <Header size='huge'>{repository.name}</Header>
-          <p>{repository.description}</p>
-          {statistics}
-          <section>
-          {this.getIssuesLabel(haveIssues)}
-          <Label as='a' color='teal' tag>{repository.language}</Label>
-          </section>
+            <Header size='huge'>{repository.name}</Header>
+            <p>{repository.description}</p>
+            {statistics}
+            <section>
+              {this.getIssuesLabel(haveIssues)}
+              <Label as='a' color='teal' tag>{repository.language}</Label>
+            </section>
         </Container>
       );
     }
   }
 
-  onRepositoryClick(event, data, x) {
-    this.setState({selectedRepository: data.id});
+  onRepositoryClick(event, data) {
+    const { repositoryList } = this.state;
+    if(repositoryList.length){
+      const repository  = repositoryList[data.id];
+      this.props.onRepositoryClick(data.id, repository);
+    }
   }
 
   render() {
@@ -116,7 +123,10 @@ class RepositoryView extends Component {
 }
 
 RepositoryView.propTypes = {
-  searchValue: PropTypes.string
+  searchValue: PropTypes.string,
+  onRepositoryClick: PropTypes.func,
+  selectedRepository: PropTypes.number,
+  searchBy: PropTypes.string
 }
 
 export default RepositoryView;

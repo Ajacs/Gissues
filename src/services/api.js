@@ -32,12 +32,8 @@ const buildUrl = (path, params) => {
   let urlWithParams = url;
 
   _.forOwn(params, (paramValue, paramName) => {
-    console.log("PARAMS:");
-    console.log(paramValue);
-    console.log(paramName);
       urlWithParams = urlWithParams.replace(`{${paramName}}`, paramValue);
   });
-  console.log(urlWithParams);
   return urlWithParams;
 }
 
@@ -54,7 +50,7 @@ const createIssue = (params) => {
   return baseRequest('issuesCreate', 'POST', params);
 };
 
-const listRepositoryIssues = params => {
+export const listRepositoryIssues = params => {
   return baseRequest('repositoryIssues', 'GET', params);
 };
 
@@ -70,7 +66,7 @@ const userDetail = () => {
 
 };
 
-const listRepositories = () => {
+export const listRepositories = () => {
   return baseRequest('repositories', 'GET');
 }
 
