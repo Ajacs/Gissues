@@ -1,7 +1,7 @@
 // @ vendor
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
-import PropTypes from 'proptypes';
+import { Form, Grid, Header, Input, TextArea, Button } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 // @ components
 import IssueSidebarContent from 'components/wizardSidebarContent/issueSidebarContent/issueSidebarContent';
 import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
@@ -28,9 +28,14 @@ class IssueView extends Component {
 
   getBody() {
     return (
-      <div>
-        <h1>This is the body of the issue</h1>
-      </div>
+      <Form>
+      <Header as='h1'>New Issue</Header>
+      <Form.Group widths='equal'>
+        <Form.Field id='form-input-control-last-name' control={Input} label='Last name' placeholder='Title' />
+      </Form.Group>
+      <Form.Field id='form-textarea-control-opinion' control={TextArea} label='Description' placeholder='Description' />
+      <Form.Field id='form-button-control-public' control={Button} content='Create' color="blue" pull="right" />
+        </Form>
     )
   }
 
@@ -54,7 +59,7 @@ class IssueView extends Component {
 
 IssueView.propTypes = {
   selectedUser: PropTypes.string,
-  selectedRepository: PropTypes.string
+  selectedRepository: PropTypes.object
 }
 
 export default IssueView

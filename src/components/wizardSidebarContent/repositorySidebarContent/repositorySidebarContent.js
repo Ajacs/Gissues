@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Label, List } from 'semantic-ui-react';
+import { List } from 'semantic-ui-react';
 const RepositorySidebarContent = ({repositoryList, actions}) => {
   return repositoryList.map( (repository, index) => (
       <List.Item id={index} key={repository.id} onClick={actions.onRepositoryClick}>

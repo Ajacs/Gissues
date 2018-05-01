@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
-import PropTypes from 'proptypes';
-import { Container, Grid, Header, Image, Label, Statistic, Icon } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import {
+  Container,
+  Grid,
+  Header,
+  Label,
+  Statistic,
+  Icon
+} from 'semantic-ui-react';
 // @components
 import RepositorySidebarContent from 'components/wizardSidebarContent/repositorySidebarContent/repositorySidebarContent';
 import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
 
 // @services
-import { listUserRepositories, listRepositories } from 'services/api';
+import { listUserRepositories } from 'services/api';
 
 class RepositoryView extends Component {
   constructor(props) {
@@ -125,7 +132,7 @@ class RepositoryView extends Component {
 RepositoryView.propTypes = {
   searchValue: PropTypes.string,
   onRepositoryClick: PropTypes.func,
-  selectedRepository: PropTypes.number,
+  selectedRepository: PropTypes.object,
   searchBy: PropTypes.string
 }
 

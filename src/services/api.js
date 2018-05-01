@@ -22,7 +22,7 @@ const normalizeEndpoint = endpoint => {
 };
 
 const buildUrl = (path, params) => {
-  const { api: { endpoints: endpoints }, baseHost } = config;
+  const { api: { endpoints }, baseHost } = config;
   const url = `${normalizeHost(baseHost)}${normalizeEndpoint(endpoints[path])}`;
 
   if( !params || _.isEmpty(params) ){
@@ -62,14 +62,6 @@ export const listUserRepositories = params => {
   return baseRequest('userRepositories', 'GET', params);
 };
 
-const userDetail = () => {
-
-};
-
 export const listRepositories = () => {
   return baseRequest('repositories', 'GET');
-}
-
-const repositoryDetail = () => {
-
 };

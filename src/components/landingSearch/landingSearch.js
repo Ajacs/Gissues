@@ -1,9 +1,9 @@
 import React from 'react';
-import { Container, Dropdown, Input } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import 'App.css';
 import gissuesLogo from 'new_gissues.png';
 import SearchBar from 'components/commons/searchBar/searchBar';
-import PropTypes from 'proptypes';
+import PropTypes from 'prop-types';
 const options = [
   { key: 'k-users', text: 'Search by Users', value: 'users' },
   { key: 'k-repositories', text: 'Search by Repositories', value: 'repositories' }

@@ -3,18 +3,13 @@ import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import gissuesLogo from 'new_gissues.png';
 
-const options = [
-  { key: 'search_by_users', text: 'Search by Users', value: 'search_by_users' },
-  { key: 'search_by_repositories', text: 'Search by Repositories', value: 'search_by_repositories' }
-];
-
 const Navbar = () =>
 
     (<Menu stackable>
       <Menu.Item
         as={Link}
         to="/">
-        <img class="ui mini image" style={{marginRight: "2.5em"}} src={gissuesLogo} />
+        <img className="ui mini image" style={{marginRight: "2.5em"}} src={gissuesLogo} alt='logo'/>
       </Menu.Item>
 
       <Menu.Item

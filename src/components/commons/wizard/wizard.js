@@ -1,25 +1,14 @@
 import React, { Component } from 'react';
 import { Step } from 'semantic-ui-react';
-import PropTypes from 'proptypes';
+import PropTypes from 'prop-types';
 import {
-  Divider,
   Grid,
-  List,
-  Image,
-  Header,
-  Label,
-  Segment,
-  Button
+  Segment
 } from 'semantic-ui-react';
-import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
 import WizardFooter from 'components/commons/wizard/wizardFooter/wizardFooter';
 import UserSidebarContent from 'components/wizardSidebarContent/userSidebarContent/userSidebarContent';
 
 class Wizard extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   createUserList() {
     const { dataList } = this.props;
@@ -64,20 +53,8 @@ class Wizard extends Component {
     const {
       actions,
       fluid,
-      steps,
-      currentStep
+      steps
     } = this.props;
-    const bodyStyle = {
-      border: '1px solid rgba(34, 36, 38, 0.15)',
-      borderTop: 'none',
-      marginBottom: 0
-    };
-
-    const footerStyle = {
-      border: '1px solid rgba(34, 36, 38, 0.15)',
-      borderTop: 'none',
-      paddingTop: '10'
-    }
 
     const wizardStyle = {
       margin: '20px'
@@ -86,27 +63,6 @@ class Wizard extends Component {
     const stepStyle = {
       marginBottom: '0'
     };
-
-    const bodyHeaderStyle = {
-        height: '50px'
-    };
-
-    const gridStyle = {
-      margin: '0'
-    };
-
-    const wizardBodyStyle = {
-      padding: '20px'
-    };
-
-    const actionButtonsStyle = {
-      float: 'right'
-    }
-    // =========================================================
-
-    // =========================================================
-    const sidebarTitle = this.getSidebarTitle();
-    const sidebarBody = this.getSidebarbody();
 
     return (
       <div style={wizardStyle}>
@@ -129,11 +85,11 @@ class Wizard extends Component {
 
 Wizard.propTypes = {
   steps: PropTypes.array,
-  fluid: PropTypes.boolean,
+  fluid: PropTypes.bool,
   currentStep: PropTypes.number,
   sidebarData: PropTypes.array,
   dataList: PropTypes.array,
-  actions: PropTypes.array
+  actions: PropTypes.object
 }
 
 Wizard.defaultProps = {
