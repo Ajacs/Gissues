@@ -1,6 +1,6 @@
 import config from 'config/configuration';
 import _ from 'lodash';
-
+import { Storage } from 'services/storage';
 /**
  * It adds a trailing slash if there isn't one
  */
@@ -39,14 +39,30 @@ const buildUrl = (path, params) => {
 
 const baseRequest = (path, method, params) => {
   const url = buildUrl(path, params);
+
   return fetch(url, {
-    method
+    method,
+    headers: params.headers || {},
+    body: JSON.stringify(params.data)
   })
     .then( response => response.json())
     .catch( error => console.log(error)); // Just log the error for the moment
 }
 
-const createIssue = (params) => {
+export const createIssue = (data) => {
+  const { title, body, user, repo } = data;
+  const params = {
+    headers: {
+      'Authorization': Storage.localStorage.get('hash'),
+      'Content-Type': 'application/json'
+    },
+    data: {
+      'title': title,
+      'body': body
+    },
+    user,
+    repo: repo.name
+  }
   return baseRequest('issuesCreate', 'POST', params);
 };
 
@@ -73,3 +89,24 @@ export const listRepositories = () => {
 const repositoryDetail = () => {
 
 };
+
+export const authenticate = hash => {
+  const params = {
+    headers: {
+      'Authorization': hash,
+      'Content-Type': 'application/json'
+    },
+    data: {
+      'scopes': ['user:email'],
+      'note': 'Gissues App'
+    }
+  }
+  return baseRequest('authorization', 'POST', params)
+}
+
+export const deleteAuthorization = authorizationId => {
+  const params = {
+    authorizationId
+  };
+  return baseRequest('authorization', 'DELETE', params);
+}

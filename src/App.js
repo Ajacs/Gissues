@@ -1,25 +1,41 @@
-  import React, { Component } from 'react';
-  import logo from './logo.svg';
-  import './App.css';
-  import Wizard from 'components/commons/wizard/wizard';
-  import {
-    Container,
-    Menu,
-    Input,
-    Button,
-    Select,
-    Dropdown
-  } from 'semantic-ui-react';
-  import Navbar from 'components/navbar/navbar';
-  import LandingSearch  from 'components/landingSearch/landingSearch';
-  import gissuesLogo from 'new_gissues.png';
-  import Views from 'views';
+// @vendor
+import React, { Component } from 'react';
+import {
+  Button,
+  Container,
+  Dropdown,
+  Input,
+  Menu,
+  Select
+} from 'semantic-ui-react';
 
-  class App extends Component {
+// @components
+import Navbar from 'components/navbar/navbar';
+import LandingSearch  from 'components/landingSearch/landingSearch';
+import Views from 'views';
+import Wizard from 'components/commons/wizard/wizard';
 
-    render() {
-      return <Views />;
-    }
-  }
+// @resources
+import gissuesLogo from 'new_gissues.png';
+import logo from './logo.svg';
+import './App.css';
 
-  export default App;
+
+export default const App = () => <Views />;
+
+
+/**
+
+Notes:
+
+* This app could be much more better using something like Redux to manage
+the internal state of the app.
+
+* This app could be best using SASS ad BEM to manage styles of the components
+
+Thanks for the opportunity.
+
+Greetings.
+
+Adderly Jáuregui.
+*/
