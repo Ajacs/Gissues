@@ -29,13 +29,13 @@ class IssueView extends Component {
   getBody() {
     return (
       <Form>
-      <Header as='h1'>New Issue</Header>
-      <Form.Group widths='equal'>
-        <Form.Field id='form-input-control-last-name' control={Input} label='Last name' placeholder='Title' />
-      </Form.Group>
-      <Form.Field id='form-textarea-control-opinion' control={TextArea} label='Description' placeholder='Description' />
-      <Form.Field id='form-button-control-public' control={Button} content='Create' color="blue" pull="right" />
-        </Form>
+        <Header as='h1'>New Issue</Header>
+        <Form.Group widths='equal'>
+          <Form.Field id='form-input-control-last-name' control={Input} label='Last name' placeholder='Title' />
+        </Form.Group>
+        <Form.Field id='form-textarea-control-opinion' control={TextArea} label='Description' placeholder='Description' />
+        <Form.Field id='form-button-control-public' control={Button} content='Create' color="blue" pull="right" />
+      </Form>
     )
   }
 

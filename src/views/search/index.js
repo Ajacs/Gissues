@@ -4,10 +4,16 @@ import { Container } from 'semantic-ui-react';
 import Wizard from 'components/commons/wizard/wizard';
 import queryString from 'query-string';
 
+// @components
 import WizardUserStep from 'views/user/userView';
 import WizardRepositoryStep from 'views/repository/repositoryView';
 import WizardIssueStep from 'views/issue/issueView';
 
+
+/**
+ * This component is the main search view, after the user enter the search string
+ * in the "/" path, contains logic to update the WizardProgressBar
+ */
 class SearchView extends Component {
 
   constructor(props) {
@@ -37,6 +43,9 @@ class SearchView extends Component {
     this.onRepositoryClick = this.onRepositoryClick.bind(this);
   }
 
+/**
+ * Sets the current step when the component did mount.
+ */
   componentDidMount(props) {
     const parsed = queryString.parse(this.props.location.search);
     const { by } = parsed;
