@@ -7,7 +7,9 @@ const systemConfiguration = {
       'userRepositories': '/users/{user}/repos',
       'repositories': '/repos',
       'repositoryIssues': '/repos/{user}/{repository}/issues',
-      'issuesCreate': '/repos/{user}/{repo}/issues'
+      'issuesCreate': '/repos/{user}/{repo}/issues',
+      'authorization': '/authorizations',
+      'authorizationDelete': '/authorizations/{authorizationId}'
     }
   }
 };
