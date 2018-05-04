@@ -60,6 +60,6 @@ class Userview extends Component {
 
 Userview.propTypes = {
   searchValue: PropTypes.string
-}
+};
 
 export default Userview;

@@ -1,6 +1,12 @@
 // @ vendor
 import React, { Component } from 'react';
-import { Grid, Form, Input, TextArea, Button } from 'semantic-ui-react';
+import {
+  Grid,
+    Form,
+    Input,
+    TextArea,
+    Button
+} from 'semantic-ui-react';
 import PropTypes from 'proptypes';
 // @ components
 import IssueSidebarContent from 'components/wizardSidebarContent/issueSidebarContent/issueSidebarContent';
@@ -16,7 +22,7 @@ class IssueView extends Component {
       title: '',
       body: '',
       successful: false
-    }
+    };
     this.onChange = this.onChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
@@ -44,8 +50,8 @@ class IssueView extends Component {
       user: selectedUser,
       repo: selectedRepository,
       title
-    }
-    createIssue(data).then(() => {
+    };
+    createIssue({title, body}).then(() => {
       this.setState({
         successful: true
       })
@@ -101,6 +107,6 @@ class IssueView extends Component {
 IssueView.propTypes = {
   selectedUser: PropTypes.string,
   selectedRepository: PropTypes.string
-}
+};
 
 export default IssueView
