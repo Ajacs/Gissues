@@ -8,7 +8,6 @@ import WizardUserStep from 'views/user/userView';
 import WizardRepositoryStep from 'views/repository/repositoryView';
 import WizardIssueStep from 'views/issue/issueView';
 // @services
-import listUsers from 'services/api';
 
 class SearchView extends Component {
 
@@ -32,7 +31,7 @@ class SearchView extends Component {
       repositoryList: [],
       repositoryIssues: [],
       selectedElement: {}
-    }
+    };
     this.onNextClicked = this.onNextClicked.bind(this);
     this.onPreviousClicked = this.onPreviousClicked.bind(this);
     this.onCancelClicked = this.onCancelClicked.bind(this);
@@ -125,7 +124,7 @@ class SearchView extends Component {
   }
 
   onCancelClicked() {
-    this.props.history.push("/");
+    this.props.history.push("/main");
   }
 
   render() {

@@ -127,6 +127,6 @@ RepositoryView.propTypes = {
   onRepositoryClick: PropTypes.func,
   selectedRepository: PropTypes.number,
   searchBy: PropTypes.string
-}
+};
 
 export default RepositoryView;
