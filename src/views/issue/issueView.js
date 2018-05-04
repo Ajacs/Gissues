@@ -1,19 +1,30 @@
 // @ vendor
 import React, { Component } from 'react';
-import { Form, Grid, Header, Input, TextArea, Button } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import {
+  Grid,
+    Form,
+    Input,
+    TextArea,
+    Button
+} from 'semantic-ui-react';
+import PropTypes from 'proptypes';
 // @ components
 import IssueSidebarContent from 'components/wizardSidebarContent/issueSidebarContent/issueSidebarContent';
 import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
 // @services
-import { listRepositoryIssues } from 'services/api';
+import { createIssue, listRepositoryIssues } from 'services/api';
 
 class IssueView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      issueList: []
-    }
+      issueList: [],
+      title: '',
+      body: '',
+      successful: false
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -26,17 +37,53 @@ class IssueView extends Component {
       });
   }
 
+  onChange(event) {
+    const { target: { name, value }, } = event;
+    this.setState({[name]: value});
+  }
+
+  onFormSubmit() {
+    const { title, body } = this.state;
+    const { selectedUser, selectedRepository } = this.props;
+    const data = {
+      body,
+      user: selectedUser,
+      repo: selectedRepository,
+      title
+    };
+    createIssue({title, body}).then(() => {
+      this.setState({
+        successful: true
+      })
+    })
+  }
+
   getBody() {
-    return (
-      <Form>
-        <Header as='h1'>New Issue</Header>
-        <Form.Group widths='equal'>
-          <Form.Field id='form-input-control-last-name' control={Input} label='Last name' placeholder='Title' />
-        </Form.Group>
-        <Form.Field id='form-textarea-control-opinion' control={TextArea} label='Description' placeholder='Description' />
-        <Form.Field id='form-button-control-public' control={Button} content='Create' color="blue" pull="right" />
-      </Form>
-    )
+    let body = <h1>Issue created!</h1>;
+    if(!this.state.successful) {
+      body = (
+        <div>
+        <Form onSubmit={this.onFormSubmit}>
+          <Form.Group widths='equal'>
+            <Form.Field
+            control={Input}
+            name='title'
+            label='Title'
+            placeholder='Title'
+            onChange={this.onChange} />
+          </Form.Group>
+          <Form.Field
+          onChange={this.onChange}
+          control={TextArea}
+          nanme='body'
+          label='Description'
+          placeholder='Tell us more about the issue...' />
+          <Form.Field control={Button}>Submit</Form.Field>
+        </Form>
+        </div>
+      )
+    }
+    return body;
   }
 
   render() {
@@ -59,7 +106,7 @@ class IssueView extends Component {
 
 IssueView.propTypes = {
   selectedUser: PropTypes.string,
-  selectedRepository: PropTypes.object
-}
+  selectedRepository: PropTypes.string
+};
 
 export default IssueView

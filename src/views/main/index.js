@@ -9,7 +9,7 @@ class MainView extends Component {
       currentSearch: 'users',
       searchValue: '',
       emptySearchInputError: false
-    }
+    };
     this.onDropdownChange = this.onDropdownChange.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -40,7 +40,7 @@ class MainView extends Component {
       inputChange: this.onInputChange,
       dropdownChange: this.onDropdownChange,
       submit: this.onSubmit
-    }
+    };
     return (
       <LandingSearch
         actions={actions}

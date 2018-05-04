@@ -1,6 +1,6 @@
 import config from 'config/configuration';
 import _ from 'lodash';
-
+import { Storage } from 'services/storage';
 /**
  * It adds a trailing slash if there isn't one
  */
@@ -24,7 +24,6 @@ const normalizeEndpoint = endpoint => {
 const buildUrl = (path, params) => {
   const { api: { endpoints }, baseHost } = config;
   const url = `${normalizeHost(baseHost)}${normalizeEndpoint(endpoints[path])}`;
-
   if( !params || _.isEmpty(params) ){
     return url;
   }
@@ -35,18 +34,31 @@ const buildUrl = (path, params) => {
       urlWithParams = urlWithParams.replace(`{${paramName}}`, paramValue);
   });
   return urlWithParams;
-}
+};
 
 const baseRequest = (path, method, params) => {
   const url = buildUrl(path, params);
   return fetch(url, {
-    method
-  })
-    .then( response => response.json())
-    .catch( error => console.log(error)); // Just log the error for the moment
-}
+    method,
+    headers: params.headers || {},
+    body: JSON.stringify(params.data)
+  }).then(response => response);
+};
 
-const createIssue = (params) => {
+export const createIssue = (data) => {
+  const { title, body, user, repo } = data;
+  const params = {
+    headers: {
+      'Authorization': Storage.localStorage.get('token'),
+      'Content-Type': 'application/json'
+    },
+    data: {
+      'title': title,
+      'body': body
+    },
+    user,
+    repo: repo.name
+  };
   return baseRequest('issuesCreate', 'POST', params);
 };
 
@@ -64,4 +76,31 @@ export const listUserRepositories = params => {
 
 export const listRepositories = () => {
   return baseRequest('repositories', 'GET');
+};
+
+const repositoryDetail = () => {
+};
+
+export const authenticate = hash => {
+  const params = {
+    headers: {
+      'Authorization': hash,
+      'Content-Type': 'application/json'
+    },
+    data: {
+      'scopes': ['user:email'],
+      'note': 'Gissues App'
+    }
+  };
+  return baseRequest('authorization', 'POST', params)
+};
+
+export const deleteAuthorization = authorizationId => {
+  const params = {
+      headers: {
+          'Authorization': `${Storage.localStorage.get('hash')}`
+      },
+      authorizationId
+  };
+  return baseRequest('authorizationDelete', 'DELETE', params);
 };

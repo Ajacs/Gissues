@@ -9,7 +9,6 @@ import WizardUserStep from 'views/user/userView';
 import WizardRepositoryStep from 'views/repository/repositoryView';
 import WizardIssueStep from 'views/issue/issueView';
 
-
 /**
  * This component is the main search view, after the user enter the search string
  * in the "/" path, contains logic to update the WizardProgressBar
@@ -36,7 +35,7 @@ class SearchView extends Component {
       repositoryList: [],
       repositoryIssues: [],
       selectedElement: {}
-    }
+    };
     this.onNextClicked = this.onNextClicked.bind(this);
     this.onPreviousClicked = this.onPreviousClicked.bind(this);
     this.onCancelClicked = this.onCancelClicked.bind(this);
@@ -132,7 +131,7 @@ class SearchView extends Component {
   }
 
   onCancelClicked() {
-    this.props.history.push("/");
+    this.props.history.push("/main");
   }
 
   render() {
