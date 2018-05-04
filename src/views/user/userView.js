@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'proptypes';
+import PropTypes from 'prop-types';
 import { Container, Grid, Header, Image } from 'semantic-ui-react';
 // @components
 import UserSidebarContent from 'components/wizardSidebarContent/userSidebarContent/userSidebarContent';

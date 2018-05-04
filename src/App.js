@@ -58,4 +58,3 @@ export default withRouter(connect(
         loginHandle: loginHandle
     }
 )(App));
-
