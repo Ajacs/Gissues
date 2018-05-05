@@ -62,14 +62,16 @@ class SearchView extends Component {
     let currentStep;
     switch(this.state.currentStep) {
       case 1:
-        currentStep = (<WizardUserStep searchValue={val} />)
+        currentStep = (
+            <WizardUserStep searchValue={val} />
+        );
         break;
       case 2:
         currentStep = (
           <WizardRepositoryStep
             onRepositoryClick={this.onRepositoryClick}
             selectedRepository={this.state.selectedRepository}
-            searchValue={val} />)
+            searchValue={val} />);
         break;
       default:
       const { selectedUser, selectedRepository } = this.state;
