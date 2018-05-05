@@ -50,10 +50,10 @@ class Wizard extends Component {
             </div>
         );
     }
-
 }
 
 Wizard.propTypes = {
+
     steps: PropTypes.array,
     fluid: PropTypes.boolean,
     currentStep: PropTypes.number,

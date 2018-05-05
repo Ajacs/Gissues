@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'proptypes';
+import PropTypes from 'prop-types';
 import { Dropdown, Form, Input, Message } from 'semantic-ui-react';
 
 const SearchBar = (
