@@ -74,12 +74,10 @@ export const listUserRepositories = params => {
   return baseRequest('userRepositories', 'GET', params);
 };
 
-export const listRepositories = () => {
-  return baseRequest('repositories', 'GET');
+export const listRepositories = params => {
+    return baseRequest('repositoriesSearch', 'GET', params);
 };
 
-const repositoryDetail = () => {
-};
 
 export const authenticate = hash => {
   const params = {

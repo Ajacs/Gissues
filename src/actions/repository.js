@@ -29,7 +29,11 @@ export const fetchRepositories = (requestData) => (dispatch) => {
     const {searchBy, searchValue} = requestData;
     dispatch(repositoriesRequest());
     let fetchFunction = listUserRepositories({username: searchValue});
-    if (searchBy === SEARCH_BY.REPOSITORIES) {
+    console.log(requestData);
+    console.log();
+    console.log(searchBy === SEARCH_BY.REPOSITORIES);
+    const searchByRepositories = searchBy === SEARCH_BY.REPOSITORIES;
+    if (searchByRepositories) {
         fetchFunction = listRepositories({repository: searchValue});
     }
     fetchFunction.then(response => {
@@ -37,7 +41,11 @@ export const fetchRepositories = (requestData) => (dispatch) => {
             dispatch(repositoriesRequestFailure());
         } else {
             response.json().then(repositories => {
-                dispatch(repositoriesRequestSuccess(repositories));
+                let repos = repositories;
+                if(searchByRepositories) {
+                    repos = repositories.items;
+                }
+                dispatch(repositoriesRequestSuccess(repos));
                 dispatch(setRepositorySelected(0));
             });
         }

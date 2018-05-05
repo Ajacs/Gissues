@@ -6,6 +6,7 @@ const systemConfiguration = {
             'users': '/users/{username}',
             'userRepositories': '/users/{username}/repos',
             'repositories': '/repos',
+            'repositoriesSearch': '/search/repositories?q={repository}&sort=stars&order=desc',
             'repositoryIssues': '/repos/{user}/{repository}/issues',
             'issuesCreate': '/repos/{user}/{repo}/issues',
             'authorization': '/authorizations',
