@@ -37,7 +37,6 @@ class App extends Component {
         const { immUser } = this.props;
         const userLoggedIn = Storage.localStorage.get('authorizationId') || immUser.get('loggedIn');
         const fetching = immUser.get('fetching');
-        console.log(`userLoggedIn: ${userLoggedIn}`);
         return (
             <Views
                 fetching={fetching}

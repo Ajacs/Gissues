@@ -63,7 +63,6 @@ class Navbar extends Component {
         const { userLogged } = this.props;
         const loginButtonAction = userLogged ? this.onLogoutClick : this.onLoginClick;
         const loginButtonText = userLogged ? 'Logout' : 'Login';
-        console.log(this.props);
         return [
             (
                 <section>

@@ -2,9 +2,13 @@
 import user from './user';
 import repository from './repository';
 import issue from './issue';
+import search from './search';
 
 export const appReducers = {
-  user,
-  repository,
-  issue
+    search,
+    issue,
+    repository,
+    user
 };
+
+

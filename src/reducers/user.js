@@ -3,11 +3,12 @@ import actionTypes from 'constants/actionTypes';
 
 
 const initialState = Immutable.fromJS({
-    loggedIn: false,
-    username: '',
-    fetching: false,
     error: false,
-    errorMessage: ''
+    errorMessage: '',
+    fetching: false,
+    loggedIn: false,
+    repositories: [],
+    user: {}
 });
 
 const userReducer = (state = initialState, action) => {
@@ -23,7 +24,7 @@ const userReducer = (state = initialState, action) => {
                 error: false
             });
         case actionTypes.USER_LOGIN_REQUEST_FAILURE:
-            const { errorMessage } = action.payload;
+            const {errorMessage} = action.payload;
             return state.merge({
                 fetching: false,
                 loggedIn: false,
@@ -47,6 +48,27 @@ const userReducer = (state = initialState, action) => {
                 loggedIn: true,
                 error: true,
                 errorMessage
+            });
+
+        case actionTypes.USER_SET_USERNAME:
+            const {username} = action.payload;
+            return state.merge({
+                username
+            });
+        case actionTypes.USER_DATA_REQUEST:
+            return state.merge({
+                fetchin: true
+            });
+        case actionTypes.USER_DATA_REQUEST_SUCCESS:
+            return state.merge({
+                user: action.payload.user,
+                fetching: false,
+                error: false
+            });
+        case actionTypes.USER_DATA_REQUEST_FAILURE:
+            return state.merge({
+                fetching: false,
+                error: true
             });
         default:
             return state

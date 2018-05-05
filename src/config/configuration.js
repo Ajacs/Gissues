@@ -3,8 +3,8 @@ const systemConfiguration = {
     api: {
         pageSize: 10,
         endpoints: {
-            'users': '/users/{user}',
-            'userRepositories': '/users/{user}/repos',
+            'users': '/users/{username}',
+            'userRepositories': '/users/{username}/repos',
             'repositories': '/repos',
             'repositoryIssues': '/repos/{user}/{repository}/issues',
             'issuesCreate': '/repos/{user}/{repo}/issues',
