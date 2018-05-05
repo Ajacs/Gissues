@@ -66,7 +66,7 @@ export const listRepositoryIssues = params => {
   return baseRequest('repositoryIssues', 'GET', params);
 };
 
-export const listUsers = params => {
+export const getUserData = params => {
   return baseRequest('users', 'GET', params);
 };
 

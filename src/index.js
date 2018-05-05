@@ -11,6 +11,8 @@ import { appReducers } from 'reducers';
 import registerServiceWorker from './registerServiceWorker';
 import 'semantic-ui-css/semantic.min.css';
 import ReduxThunk from 'redux-thunk';
+// @ constants
+import actionTypes from 'constants/actionTypes';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();
@@ -25,13 +27,23 @@ const enhancers = compose(
 
 // Add the reducer to your store on the `router` key
 // Also apply our middleware for navigating
-const store = createStore(
-  combineReducers({
+
+const appReducer = combineReducers({
     ...appReducers,
     router: routerReducer
-  }),
-  enhancers
-);
+});
+
+
+// Reset to initial state on user logout
+const rootReducer = (state, action) => {
+    if(action.type === actionTypes.USER_LOGOUT_REQUEST_SUCCESS) {
+        state = {}
+    }
+    return appReducer(state, action);
+};
+
+
+const store = createStore(rootReducer, enhancers);
 
 ReactDOM.render(
   <Provider store={store}>
