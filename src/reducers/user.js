@@ -7,7 +7,6 @@ const initialState = Immutable.fromJS({
     errorMessage: '',
     fetching: false,
     loggedIn: false,
-    repositories: [],
     user: {}
 });
 
@@ -70,6 +69,7 @@ const userReducer = (state = initialState, action) => {
                 fetching: false,
                 error: true
             });
+
         default:
             return state
     }
