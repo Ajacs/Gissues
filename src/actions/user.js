@@ -23,30 +23,11 @@ const setUserName = username => ({
   }
 });
 
-const repositoriesRequest = username => ({
-   type: actionTypes.USER_REPOSITORIES_REQUEST
-});
-
-const repositoriesRequestSuccess = repositories => ({
-    type: actionTypes.USER_REPOSITORIES_REQUEST_SUCCES,
-    payload: {
-        repositories
-    }
-});
-
-const repositoriesRequestFailure = error => ({
-   type: actionTypes.USER_REPOSITORIES_REQUEST_FAILURE,
-   payload: {
-       error
-   }
-});
-
-
 export const fetchUserData = ({username}) => (dispatch, getState) => {
     dispatch(userDataRequest());
     getUserData({username}).then(response => {
         if(response.status !== 200) {
-            dispatch(repositoriesRequestFailure())
+            dispatch(userDataRequestFailure());
         } else {
             response.json().then( userData => {
                 dispatch(userDataRequestSuccess(userData));
@@ -54,15 +35,3 @@ export const fetchUserData = ({username}) => (dispatch, getState) => {
         }
     })
 };
-
-export const fetchUserRepositories = username => (dispatch, getState) => {
-    dispatch(repositoriesRequest());
-    listUserRepositories({username}).then( response => {
-        //@TODO: console.log(response);
-    })
-};
-
-/*
-export const setUsername = username => (dispatch) => {
-    dispatch(setUserName(username));
-};*/
