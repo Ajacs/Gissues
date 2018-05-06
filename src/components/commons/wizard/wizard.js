@@ -9,10 +9,6 @@ import WizardFooter from 'components/commons/wizard/wizardFooter/wizardFooter';
 
 class Wizard extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {
             actions,
@@ -21,11 +17,6 @@ class Wizard extends Component {
             steps,
             searchBy
         } = this.props;
-        const bodyStyle = {
-            border: '1px solid rgba(34, 36, 38, 0.15)',
-            borderTop: 'none',
-            marginBottom: 0
-        };
 
         const wizardStyle = {
             margin: '20px'
@@ -57,13 +48,12 @@ class Wizard extends Component {
 }
 
 Wizard.propTypes = {
-
     steps: PropTypes.array,
-    fluid: PropTypes.boolean,
+    fluid: PropTypes.bool,
     currentStep: PropTypes.number,
     sidebarData: PropTypes.array,
     dataList: PropTypes.array,
-    actions: PropTypes.array
+    actions: PropTypes.object
 };
 
 Wizard.defaultProps = {

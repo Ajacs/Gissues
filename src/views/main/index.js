@@ -1,10 +1,12 @@
+// @ vendor
 import React, {Component} from 'react';
 import PropTypes from 'proptypes';
-import LandingSearch from 'components/landingSearch/landingSearch';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import {setUsername} from "actions/user";
+// @ components
+import LandingSearch from 'components/landingSearch/landingSearch';
+// @ actions
 import {setSearchValue, setSearchBy} from 'actions/search';
 
 class MainView extends Component {
@@ -31,11 +33,9 @@ class MainView extends Component {
         const {immSearch} = this.props;
         event.preventDefault();
         if (immSearch.get('searchValue')) {
-            const {immSearch, immUser} = this.props;
+            const {immSearch} = this.props;
             const searchValue = immSearch.get('searchValue');
             const searchBy = immSearch.get('searchBy');
-
-            const {currentSearch} = this.state;
             this.setState({emptySearchInputError: false});
             this.props.history.push(`/search?by=${searchBy}&val=${searchValue}`);
         } else {
