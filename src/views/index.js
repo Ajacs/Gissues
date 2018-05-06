@@ -1,8 +1,9 @@
 // @vendor
 import React from 'react';
 import {
-  Route,
-  Switch
+    Redirect,
+    Route,
+    Switch
 } from  'react-router-dom';
 import PropTypes from 'proptypes';
 // @views
@@ -20,6 +21,7 @@ const Views = ({userLogged, onSubmit, onChange, fetching}) => {
         <div>
             {menu}
             <Switch>
+                <Route exact path="/" render={() => <Redirect to="/login"/>}/>
                 <Route exact path="/login" render={() => (
                     <LoginView
                         onChange={onChange}

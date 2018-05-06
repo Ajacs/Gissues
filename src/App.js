@@ -10,7 +10,7 @@ import {Storage} from 'services/storage';
 // @resources
 import './App.css';
 
-class App extends Component {
+export class App extends Component {
 
     constructor(props) {
         super(props);
@@ -20,6 +20,12 @@ class App extends Component {
         };
         this.handleOnChange = this.handleOnChange.bind(this);
         this.handleOnSubmit = this.handleOnSubmit.bind(this);
+    }
+
+    componentWillUnmount() {
+        Storage.localStorage.remove('authorizationId');
+        Storage.localStorage.remove('hash');
+        Storage.localStorage.remove('token');
     }
 
 

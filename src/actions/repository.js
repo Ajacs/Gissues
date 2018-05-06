@@ -75,10 +75,12 @@ const setShowRepositoryCreateView = show => ({
 export const fetchRepositories = (requestData) => (dispatch) => {
     const {searchBy, searchValue} = requestData;
     dispatch(repositoriesRequest());
-    let fetchFunction = listUserRepositories({username: searchValue});
+    let fetchFunction;
     const searchByRepositories = searchBy === SEARCH_BY.REPOSITORIES;
     if (searchByRepositories) {
         fetchFunction = listRepositories({repository: searchValue});
+    } else {
+        fetchFunction = listUserRepositories({username: searchValue});
     }
     fetchFunction.then(response => {
         if (response.status !== 200) {

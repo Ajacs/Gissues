@@ -75,12 +75,17 @@ class SearchView extends Component {
                         searchBy={by}
                     />);
                 break;
-            default:
+            case 3 :
                 const {selectedUser, selectedRepository} = this.state;
                 currentStep = (
                     <WizardIssueStep
                         selectedUser={selectedUser}
                         selectedRepository={selectedRepository.object}/>);
+                break;
+            default:
+                currentStep = (
+                    <WizardUserStep searchValue={val}/>
+                );
                 break;
         }
         return currentStep;
