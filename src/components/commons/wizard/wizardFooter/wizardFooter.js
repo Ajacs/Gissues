@@ -1,17 +1,20 @@
 import React from 'react';
 import { Button, Grid } from 'semantic-ui-react';
 import { SEARCH_BY } from 'constants/searchTypes';
-import classNames from 'classnames';
 
 const WizardFooter = ({actions, searchBy, currentStep}) => {
-    let visibleOrBackButtons = true;
     let visibleNextButton = true;
+    let visibleBakButton  = true;
+    let visibleOrButton   = true;
 
     if ( currentStep === 2 && searchBy === SEARCH_BY.REPOSITORIES) {
-        visibleOrBackButtons = false;
+        visibleBakButton = false;
+        visibleOrButton = false;
     } else if(currentStep === 1 && searchBy === SEARCH_BY.USERS) {
-        visibleOrBackButtons = false;
+        visibleBakButton = false;
+        visibleOrButton = false;
     } else if( currentStep === 3) {
+        visibleOrButton = false;
         visibleNextButton = false;
     }
 
@@ -25,8 +28,8 @@ const WizardFooter = ({actions, searchBy, currentStep}) => {
                 Cancelar
             </Button>
             <Button.Group floated="right" size='medium' >
-                <Button style={{visibility: visibleOrBackButtons ? 'visible' : 'hidden'}} onClick={actions.onPreviousClicked}>Anterior</Button>
-                <Button.Or style={{visibility: visibleOrBackButtons ? 'visible' : 'hidden'}} />
+                <Button style={{visibility: visibleBakButton ? 'visible' : 'hidden'}} onClick={actions.onPreviousClicked}>Anterior</Button>
+                <Button.Or style={{visibility: visibleOrButton ? 'visible' : 'hidden'}} />
                 <Button
                     style={{visibility: visibleNextButton ? 'visible' : 'hidden'}}
                     color="blue"

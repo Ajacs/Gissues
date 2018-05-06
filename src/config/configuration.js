@@ -8,7 +8,7 @@ const systemConfiguration = {
             'repositories': '/repos',
             'repositoriesSearch': '/search/repositories?q={repository}&sort=stars&order=desc',
             'repositoryIssues': '/repos/{user}/{repository}/issues',
-            'issuesCreate': '/repos/{user}/{repo}/issues',
+            'issuesCreate': '/repos/{user}/{repository}/issues',
             'authorization': '/authorizations',
             'authorizationDelete': '/authorizations/{authorizationId}'
         }
