@@ -36,6 +36,7 @@ const SearchBar = (
                 }
                 icon='search'
                 iconPosition='left'
+                id="searchBarInput"
                 placeholder='Search...'
                 onChange={inputChange}
             />

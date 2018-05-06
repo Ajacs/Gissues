@@ -39,8 +39,11 @@ class IssueView extends Component {
     }
 
     componentDidMount() {
-        const {fetchRepositoryIssues} = this.props;
-        fetchRepositoryIssues();
+        const {fetchRepositoryIssues, immRepository} = this.props;
+        const owner = immRepository.get('repositoryOwner');
+        if(owner) {
+            fetchRepositoryIssues();
+        }
     }
 
     onChange(event) {
@@ -116,8 +119,8 @@ class IssueView extends Component {
         let issueLabelsSection = null;
         if (labels) {
             if (labels.size) {
-                const issueLabels = labels.toJS().map(label => (
-                    <Label tag style={{backgroundColor: `#${label.color}`, color: '#FFF'}}>{label.name}</Label>
+                const issueLabels = labels.toJS().map((label, index) => (
+                    <Label key={index} tag style={{backgroundColor: `#${label.color}`, color: '#FFF'}}>{label.name}</Label>
                 ));
                 issueLabelsSection = (
                     <div>
