@@ -1,17 +1,23 @@
+// @vendor
 import React, {Component} from 'react';
 import PropTypes from 'proptypes';
-import {Container, Grid, Header, Image} from 'semantic-ui-react';
+import {
+    Container,
+    Grid,
+    Header,
+    Image,
+    Message
+} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 // @components
 import UserSidebarContent from 'components/wizardSidebarContent/userSidebarContent/userSidebarContent';
 import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
 
-// @services
-import {listUsers, listUserRepositories} from 'services/api';
-import {fetchUserRepositories, fetchUserData} from 'actions/user';
+// @actions
+import {fetchUserData} from 'actions/user';
 
-class Userview extends Component {
+class UserView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,9 +34,11 @@ class Userview extends Component {
         const {immUser} = this.props;
         const user = immUser.get('user');
         return (
-            <Container text style={{textAlign: 'center'}}>
-                <Image className="centered" src={user.get('avatar_url')} size='small' circular/>
-                <Header size='huge'>{user.get('name') || user.get('login')}</Header>
+            <Container style={{textAlign: 'center'}}>
+                <Message>
+                    <Image className="centered" src={user.get('avatar_url')} size='small' circular/>
+                    <Header size='huge'>{user.get('name') || user.get('login')}</Header>
+                </Message>
             </Container>
         );
 
@@ -56,7 +64,7 @@ class Userview extends Component {
     }
 }
 
-Userview.propTypes = {
+UserView.propTypes = {
     immSearch: PropTypes.object,
     fetchUserData: PropTypes.func,
     searchValue: PropTypes.string
@@ -70,4 +78,4 @@ export default withRouter(connect(
     {
         fetchUserData: fetchUserData
     }
-)(Userview));
+)(UserView));

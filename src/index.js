@@ -1,19 +1,22 @@
 // @vendor
 import React from 'react';
 import ReactDOM  from 'react-dom';
-import './index.css';
-import App from 'App';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
-import { Route } from 'react-router'
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
-import { appReducers } from 'reducers';
-import registerServiceWorker from './registerServiceWorker';
-import 'semantic-ui-css/semantic.min.css';
+import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 import ReduxThunk from 'redux-thunk';
+// @ reducers
+import { appReducers } from 'reducers';
+// @components
+import App from 'App';
 // @ constants
 import actionTypes from 'constants/actionTypes';
+// @resources
+import 'semantic-ui-css/semantic.min.css';
+import './index.css';
+// @ worker
+import registerServiceWorker from './registerServiceWorker';
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory();

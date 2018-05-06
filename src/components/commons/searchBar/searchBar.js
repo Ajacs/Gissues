@@ -27,7 +27,7 @@ const SearchBar = (
                 action={
                     <Dropdown
                         button
-                        primary
+                        primary="true"
                         floating
                         options={searchOptions}
                         defaultValue={defaultSearch}
@@ -36,6 +36,7 @@ const SearchBar = (
                 }
                 icon='search'
                 iconPosition='left'
+                id="searchBarInput"
                 placeholder='Search...'
                 onChange={inputChange}
             />
@@ -47,10 +48,10 @@ const SearchBar = (
 SearchBar.propTypes = {
     searchOptions: PropTypes.array,
     defaultSearch: PropTypes.string,
-    dropdownChange: PropTypes.function,
-    inputChange: PropTypes.function,
-    onSubmit: PropTypes.function,
-    error: PropTypes.boolean
+    dropdownChange: PropTypes.func,
+    inputChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    error: PropTypes.bool
 };
 
 SearchBar.defaultProps = {

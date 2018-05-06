@@ -1,13 +1,15 @@
+// @ vendor
 import React, {Component} from 'react';
 import PropTypes from 'proptypes';
-import LandingSearch from 'components/landingSearch/landingSearch';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
-import {setUsername} from "actions/user";
+// @ components
+import LandingSearch from 'components/landingSearch/landingSearch';
+// @ actions
 import {setSearchValue, setSearchBy} from 'actions/search';
 
-class MainView extends Component {
+export class MainView extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,11 +33,9 @@ class MainView extends Component {
         const {immSearch} = this.props;
         event.preventDefault();
         if (immSearch.get('searchValue')) {
-            const {immSearch, immUser} = this.props;
+            const {immSearch} = this.props;
             const searchValue = immSearch.get('searchValue');
             const searchBy = immSearch.get('searchBy');
-
-            const {currentSearch} = this.state;
             this.setState({emptySearchInputError: false});
             this.props.history.push(`/search?by=${searchBy}&val=${searchValue}`);
         } else {
@@ -51,6 +51,7 @@ class MainView extends Component {
         };
         return (
             <LandingSearch
+                id="mainSearch"
                 actions={actions}
                 error={this.state.emptySearchInputError}
             />
@@ -59,8 +60,11 @@ class MainView extends Component {
 }
 
 MainView.propTypes = {
-    setUsername: PropTypes.func,
-    setSearchValue: PropTypes.func
+    immSearch: PropTypes.object,
+    immUser: PropTypes.object,
+    setSearchBy: PropTypes.func,
+    setSearchValue: PropTypes.func,
+    setUsername: PropTypes.func
 };
 
 export default withRouter(connect(

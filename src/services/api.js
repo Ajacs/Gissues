@@ -46,10 +46,10 @@ const baseRequest = (path, method, params) => {
 };
 
 export const createIssue = (data) => {
-  const { title, body, user, repo } = data;
+  const { title, body, user, repository } = data;
   const params = {
     headers: {
-      'Authorization': Storage.localStorage.get('token'),
+      'Authorization': Storage.localStorage.get('hash'),
       'Content-Type': 'application/json'
     },
     data: {
@@ -57,7 +57,7 @@ export const createIssue = (data) => {
       'body': body
     },
     user,
-    repo: repo.name
+      repository
   };
   return baseRequest('issuesCreate', 'POST', params);
 };
@@ -74,12 +74,10 @@ export const listUserRepositories = params => {
   return baseRequest('userRepositories', 'GET', params);
 };
 
-export const listRepositories = () => {
-  return baseRequest('repositories', 'GET');
+export const listRepositories = params => {
+    return baseRequest('repositoriesSearch', 'GET', params);
 };
 
-const repositoryDetail = () => {
-};
 
 export const authenticate = hash => {
   const params = {

@@ -9,22 +9,14 @@ import WizardFooter from 'components/commons/wizard/wizardFooter/wizardFooter';
 
 class Wizard extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {
             actions,
+            currentStep,
             fluid,
             steps,
-            currentStep
+            searchBy
         } = this.props;
-        const bodyStyle = {
-            border: '1px solid rgba(34, 36, 38, 0.15)',
-            borderTop: 'none',
-            marginBottom: 0
-        };
 
         const wizardStyle = {
             margin: '20px'
@@ -44,7 +36,10 @@ class Wizard extends Component {
                 <Segment attached style={{padding: '0px'}}>
                     <Grid celled centered stretched style={{margin: '0px 0px'}}>
                         {this.props.children}
-                        <WizardFooter actions={actions}/>
+                        <WizardFooter
+                            currentStep={currentStep}
+                            searchBy={searchBy}
+                            actions={actions}/>
                     </Grid>
                 </Segment>
             </div>
@@ -53,17 +48,16 @@ class Wizard extends Component {
 }
 
 Wizard.propTypes = {
-
     steps: PropTypes.array,
-    fluid: PropTypes.boolean,
+    fluid: PropTypes.bool,
     currentStep: PropTypes.number,
     sidebarData: PropTypes.array,
     dataList: PropTypes.array,
-    actions: PropTypes.array
+    actions: PropTypes.object
 };
 
 Wizard.defaultProps = {
     fluid: true
 };
 
-export default Wizard
+export default Wizard;

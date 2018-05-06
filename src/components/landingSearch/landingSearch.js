@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Dropdown, Input} from 'semantic-ui-react';
+import {Container} from 'semantic-ui-react';
 import 'App.css';
 import gissuesLogo from 'new_gissues.png';
 import SearchBar from 'components/commons/searchBar/searchBar';
@@ -26,9 +26,9 @@ const LandingSearch = ({actions, error}) => {
     </Container>)
 };
 
-LandingSearch.PropTypes = {
+LandingSearch.propTypes = {
     actions: PropTypes.object,
-    error: PropTypes.boolean
+    error: PropTypes.bool
 };
 
 export default LandingSearch;
