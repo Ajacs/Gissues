@@ -1,11 +1,10 @@
 import React from 'react';
-import LoginView from 'views/login';
-import { Route, Redirect } from  'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 
 const ProtectedView = ({userLogged, path, component}) => {
-    let route = (<Redirect to="/login" />);
-    if(userLogged) {
-        route = (<Route path={path} component={component} />)
+    let route = (<Redirect to="/login"/>);
+    if (userLogged) {
+        route = (<Route path={path} component={component}/>)
     }
     return route;
 };

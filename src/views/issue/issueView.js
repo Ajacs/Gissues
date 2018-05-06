@@ -65,6 +65,7 @@ class IssueView extends Component {
         const buttonText = success ? 'Created!' : 'Create';
         return (
             <div>
+                <Header as="h1">New Issue to: {immRepository.getIn(['selectedRepository', 'name'])}</Header>
                 <Form onSubmit={this.onFormSubmit}>
                     <Form.Group widths='equal'>
                         <Form.Field
@@ -111,6 +112,7 @@ class IssueView extends Component {
     getIssueDetailBody() {
         //@TODO: Needs refactor
         const {title, body, labels} = this.getIssueData(['title', 'body', 'labels']);
+        const { immRepository } = this.props;
         let issueLabelsSection = null;
         if (labels) {
             if (labels.size) {
@@ -140,11 +142,19 @@ class IssueView extends Component {
                 {title}
             </div>
         );
-
-        return (
+        let header = headerBody;
+        let content = issueBody;
+        let error = false;
+        if(immRepository.get('selectedRepositoryIssues').size  === 0) {
+            header = 'Yay! we have no issues!';
+            content = 'We are very happy, because everything is going well!';
+            error = true;
+        };
+        return immRepository.get('fetching') ? null : (
             <Message
-                header={headerBody}
-                content={issueBody}
+                error={error}
+                header={header}
+                content={content}
             />
         )
     }
@@ -169,7 +179,11 @@ class IssueView extends Component {
         return (
             <Grid.Row divided>
                 <WizardSidebar title="Issues">
-                    <IssueSidebarContent issueList={issueList.toJS()} actions={actions}/>
+                    <IssueSidebarContent
+                        fetching={immRepository.get('fetching')}
+                        issueList={issueList.toJS()}
+                        actions={actions}
+                    />
                 </WizardSidebar>
                 <Grid.Column width={13} style={wizardBodyStyle}>
                     <Grid.Row>
@@ -192,7 +206,7 @@ class IssueView extends Component {
 IssueView.propTypes = {
     createRepositoryIssue: PropTypes.func,
     fetchRepositoryIssues: PropTypes.func,
-    selectedRepository: PropTypes.string,
+    selectedRepository: PropTypes.object,
     selectedUser: PropTypes.string,
     selectIssue: PropTypes.func,
     showCreateRepositoryView: PropTypes.func

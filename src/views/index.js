@@ -1,10 +1,10 @@
 // @vendor
 import React from 'react';
 import {
-  BrowserRouter as Router,
   Route,
   Switch
 } from  'react-router-dom';
+import PropTypes from 'proptypes';
 // @views
 import MainView from 'views/main';
 import SearchView from 'views/search';
@@ -13,6 +13,7 @@ import ProtectedView from 'views/protectedView/protectedView';
 
 // @components
 import Navbar from 'components/navbar/navbar';
+
 const Views = ({userLogged, onSubmit, onChange, fetching}) => {
     const menu = userLogged ? (<Navbar userLogged={userLogged} />) : null;
     return (
@@ -32,6 +33,13 @@ const Views = ({userLogged, onSubmit, onChange, fetching}) => {
             </Switch>
         </div>
     );
+};
+
+Views.propTypes = {
+    fetching: PropTypes.bool,
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    userLogged: PropTypes.oneOfType([PropTypes.number, PropTypes.bool])
 };
 
 export default Views;

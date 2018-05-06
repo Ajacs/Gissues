@@ -1,13 +1,15 @@
 // @vendor
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'proptypes';
 // @components
 import Views from 'views';
-import { loginHandle, logoutHandle } from 'actions/authentication';
-import { Storage } from 'services/storage';
+import {loginHandle} from 'actions/authentication';
+import {Storage} from 'services/storage';
 // @resources
 import './App.css';
+
 class App extends Component {
 
     constructor(props) {
@@ -29,12 +31,12 @@ class App extends Component {
     }
 
     handleOnChange(event) {
-        const { target: { name, value }} = event;
-        this.setState({ [name]: value});
+        const {target: {name, value}} = event;
+        this.setState({[name]: value});
     }
 
     render() {
-        const { immUser } = this.props;
+        const {immUser} = this.props;
         const userLoggedIn = Storage.localStorage.get('authorizationId') || immUser.get('loggedIn');
         const fetching = immUser.get('fetching');
         return (
@@ -47,6 +49,11 @@ class App extends Component {
         )
     }
 }
+
+App.propTypes = {
+    immUser: PropTypes.object,
+    loginHandle: PropTypes.func
+};
 
 
 

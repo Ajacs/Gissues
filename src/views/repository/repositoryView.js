@@ -5,8 +5,7 @@ import {
     Grid,
     Header,
     Label,
-    Statistic,
-    Icon
+    Message
 } from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -14,13 +13,9 @@ import {withRouter} from 'react-router-dom';
 import RepositorySidebarContent
     from 'components/wizardSidebarContent/repositorySidebarContent/repositorySidebarContent';
 import WizardSidebar from 'components/commons/wizard/wizardSidebar/wizardSidebar';
-// @ constants
-import  { SEARCH_BY } from 'constants/searchTypes';
 
-import { fetchRepositories, selectRepository } from 'actions/repository';
-
-// @services
-import { listUserRepositories } from 'services/api';
+// @actions
+import {fetchRepositories, selectRepository} from 'actions/repository';
 
 class RepositoryView extends Component {
     constructor(props) {
@@ -34,9 +29,8 @@ class RepositoryView extends Component {
     componentDidMount() {
         const {
             fetchRepositories,
-            searchBy ,
-            searchValue,
-            selectRepository
+            searchBy,
+            searchValue
         } = this.props;
         const requestData = {
             searchBy,
@@ -51,57 +45,22 @@ class RepositoryView extends Component {
         return <Label as='a' color={color} tag>{label}</Label>
     }
 
-    getRepositoryStatistics(repository) {
-        const {forks, open_issues, stargazers_count, watchers} = repository;
-        return (
-            <div>
-                <Statistic.Group widths='four'>
-                    <Statistic>
-                        <Statistic.Value>{forks}</Statistic.Value>
-                        <Statistic.Label>Forks</Statistic.Label>
-                    </Statistic>
-
-                    <Statistic>
-                        <Statistic.Value>{open_issues}</Statistic.Value>
-                        <Statistic.Label>Open Issues</Statistic.Label>
-                    </Statistic>
-
-                    <Statistic>
-                        <Statistic.Value>
-                            <Icon name='eye'/>
-                            {watchers}
-                        </Statistic.Value>
-                        <Statistic.Label>Watchers</Statistic.Label>
-                    </Statistic>
-
-                    <Statistic>
-                        <Statistic.Value>
-                            <Icon name='star'/>
-                            {stargazers_count}
-                        </Statistic.Value>
-                        <Statistic.Label>Stargazers Count</Statistic.Label>
-                    </Statistic>
-                </Statistic.Group>
-            </div>
-        )
-    }
-
     getBody() {
-        const { immRepository } = this.props;
+        const {immRepository} = this.props;
         const repositoryList = immRepository.get('repositories').toJS();
         if (repositoryList.length) {
-            const repository = immRepository.get('selectedRepository').toJS();
-            const haveIssues = repository.has_issues;
-            const statistics = this.getRepositoryStatistics(repository);
+            const repository = immRepository.get('selectedRepository');
+            const haveIssues = repository.get('open_issues_count');
             return (
-                <Container text style={{textAlign: 'center'}}>
-                    <Header size='huge'>{repository.name}</Header>
-                    <p>{repository.description}</p>
-                    {statistics}
-                    <section>
-                        {this.getIssuesLabel(haveIssues)}
-                        <Label as='a' color='teal' tag>{repository.language}</Label>
-                    </section>
+                <Container style={{textAlign: 'center'}}>
+                    <Message>
+                        <Header size='huge'>{repository.get('name')}</Header>
+                        <p>{repository.get('description')}</p>
+                        <section>
+                            {this.getIssuesLabel(haveIssues)}
+                            <Label as='a' color='teal' tag>{repository.get('language') || 'NA'}</Label>
+                        </section>
+                    </Message>
                 </Container>
             );
         }
@@ -118,7 +77,7 @@ class RepositoryView extends Component {
         const actions = {
             onRepositoryClick: this.onRepositoryClick
         };
-        const { immRepository } = this.props;
+        const {immRepository} = this.props;
         let repositories = immRepository.get('repositories').toJS();
         return (
             <Grid.Row divided>
@@ -135,6 +94,9 @@ class RepositoryView extends Component {
 
 RepositoryView.propTypes = {
     fetchUserRepositories: PropTypes.func,
+    immRepository: PropTypes.object,
+    immSearch: PropTypes.object,
+    immUser: PropTypes.object,
     onRepositoryClick: PropTypes.func,
     searchBy: PropTypes.string,
     searchValue: PropTypes.string,

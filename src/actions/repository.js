@@ -1,7 +1,6 @@
 import actionTypes from 'constants/actionTypes';
 import {
     createIssue,
-    getUserData,
     listRepositories,
     listRepositoryIssues,
     listUserRepositories
@@ -87,7 +86,7 @@ export const fetchRepositories = (requestData) => (dispatch) => {
         } else {
             response.json().then(repositories => {
                 let repos = repositories;
-                if(searchByRepositories) {
+                if (searchByRepositories) {
                     repos = repositories.items;
                 }
                 dispatch(repositoriesRequestSuccess(repos));
@@ -102,7 +101,7 @@ export const selectRepository = repositoryId => dispatch => {
     dispatch(setRepositorySelected(repositoryId));
 };
 
-export const selectIssue =issueId => dispatch => {
+export const selectIssue = issueId => dispatch => {
     dispatch(setIssueSelected(issueId));
 };
 
@@ -115,7 +114,7 @@ export const fetchRepositoryIssues = () => (dispatch, getState) => {
             if (response.status !== 200) {
                 dispatch(repositoryIssuesRequestFailure());
             } else {
-                response.json().then( issues => {
+                response.json().then(issues => {
                     dispatch(repositoryIssuesRequestSuccess(issues));
                     dispatch(selectIssue(0));
                 })
@@ -126,12 +125,12 @@ export const fetchRepositoryIssues = () => (dispatch, getState) => {
 
 export const createRepositoryIssue = issueData => (dispatch, getState) => {
     dispatch(repositoryIssueCreateRequest());
-    const { title, body } = issueData;
+    const {title, body} = issueData;
     const user = getState().repository.get('repositoryOwner');
     const repository = getState().repository.getIn(['selectedRepository', 'name']);
     createIssue({title, body, user, repository}).then(
         response => {
-            if(response.status !== 201) {
+            if (response.status !== 201) {
                 dispatch(repositoryIssueCreateRequestFailure());
             } else {
                 dispatch(repositoryIssueCreateRequestSuccess());
